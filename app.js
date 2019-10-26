@@ -34,7 +34,7 @@ $(document).on("click", ".gif-button", function() {
 
     let gif = $(this).attr("data-gif");
 
-    const queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=QFgJUbUNCHg590GuY69pniXKIERiCZUN&limit=10"
+    const queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=QFgJUbUNCHg590GuY69pniXKIERiCZUN&limit=10"
 
     $.ajax({
         url: queryURL,
