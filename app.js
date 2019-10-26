@@ -50,17 +50,31 @@ $(document).on("click", ".gif-button", function() {
       console.log(animate)
       console.log(still)
 
-      let newGif = $("<img>")
+      let theGif = $("<img>")
                   .addClass("mood-gif")
                   .attr("src", animate)
-                  .attr("data-state", "still")
+                  .attr("data-state", "animate")
                   .attr("data-animate", animate)                            
                   .attr("data-still", still)      
                   
-      newGif.appendTo("#display-gif")
+      theGif.appendTo("#display-gif")
       }
     });
 });
+
+
+$(document).on("click", ".mood-gif", function() {
+    let state = $(this).attr("data-state");
+
+    if (state === "animate") {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    } else {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    }
+});
+
 
 
 
