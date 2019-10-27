@@ -1,4 +1,4 @@
-let initialButtons = ["happy", "sad", "hungry", "hyper", "tired", "determined", "jealous", "strong"];
+let initialButtons = ["happy", "sad", "hungry", "bored", "hyper", "tired", "determined", "jealous", "strong", "anxious"];
 
 
 for (let i = 0; i < initialButtons.length; i++) {
@@ -30,7 +30,7 @@ function addButton() {
 
 
 $(document).on("click", ".gif-button", function() {
-    $("#display-gif").empty()
+    // $("#display-gif").empty()
 
     let gif = $(this).attr("data-gif");
 
@@ -47,17 +47,21 @@ $(document).on("click", ".gif-button", function() {
       for (let i = 0; i < response.data.length; i++) {
       let animate = response.data[i].images.downsized.url
       let still = response.data[i].images.downsized_still.url
-      console.log(animate)
-      console.log(still)
+      let rating = response.data[i].rating
+
+      console.log(rating);
 
       let theGif = $("<img>")
                   .addClass("mood-gif")
-                  .attr("src", animate)
-                  .attr("data-state", "animate")
+                  .attr("src", still)
+                  .attr("data-state", "still")
                   .attr("data-animate", animate)                            
                   .attr("data-still", still)      
+
+      theGif.appendTo("#display-gif")      
+
+      $("<div>").html("rating: " + rating + "<br><br><br>").appendTo("#display-gif")
                   
-      theGif.appendTo("#display-gif")
       }
     });
 });
@@ -66,12 +70,12 @@ $(document).on("click", ".gif-button", function() {
 $(document).on("click", ".mood-gif", function() {
     let state = $(this).attr("data-state");
 
-    if (state === "animate") {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-    } else {
+    if (state === "still") {
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
     }
 });
 
